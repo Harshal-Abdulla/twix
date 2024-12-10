@@ -1,7 +1,6 @@
 package com.twix.app.tweet;
 
 import com.twix.app.follower.FollowerRepository;
-import com.twix.app.user.User;
 import com.twix.app.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

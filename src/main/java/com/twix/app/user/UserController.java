@@ -19,14 +19,12 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers() {
-        List a = userRepository.findAll();
-        return a;
+        return userRepository.findAll();
     }
 
     @GetMapping("/{username}")
     public Optional<User> getUserByUsername(@PathVariable String username) {
-        Optional<User> a = userRepository.findOneByUsername(username);
-        return a;
+        return userRepository.findOneByUsername(username);
     }
 
 }
