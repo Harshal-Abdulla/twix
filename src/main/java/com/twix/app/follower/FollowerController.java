@@ -29,7 +29,7 @@ public class FollowerController {
         followRelation.setFollowing(following);
         followerRepository.save(followRelation);
 
-        return follower.getName() + " is now following " + following.getName();
+        return follower.getClass().getName() + " is now following " + following.getClass().getName();
     }
     @Transactional
     @DeleteMapping("/{userId}/unfollow/{followId}")
