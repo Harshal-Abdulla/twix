@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 
 interface User {
   id: number;
@@ -30,14 +31,36 @@ const Feed: React.FC<Props> = ({
   currentUser,
   followUser,
   unfollowUser,
-  allUsers,
-  followedUsers,
+  allUsers,followedUsers: initialFollowedUsers,
 }) => {
 
-  const isFollowing = (userId: number) =>
-    followedUsers.some((user) => user.id ===userId);
+    const [followedUsers, setFollowedUsers] = useState<User[]>(initialFollowedUsers || []);
 
-  return (
+    const isFollowing = (userId: number) =>
+        followedUsers && followedUsers.some((user) => user.id === userId);
+
+
+
+    const handleFollow = (userId: number, followId: number) => {
+        console.log("User ID:", userId, "Follow ID:", followId);
+        followUser(userId, followId);
+        const userToFollow = allUsers.find((user) => user.id === followId);
+        console.log("User to Follow:", userToFollow);
+        if (userToFollow && !isFollowing(followId)) {
+            setFollowedUsers((prev) => [...prev, userToFollow]);
+            console.log("Updated Followed Users:", [...followedUsers, userToFollow]);
+        } else {
+            console.error("User not found or already followed.");
+        }
+    };
+
+    const handleUnfollow = (userId: number, followId: number) => {
+        unfollowUser(userId, followId);
+        setFollowedUsers((prev) => prev.filter((user) => user.id !== followId));
+    };
+
+
+    return (
     <div>
       <h3>Feed</h3>
       <ul className="list-group">
@@ -47,7 +70,14 @@ const Feed: React.FC<Props> = ({
           </li>
         ))}
       </ul>
+
+        <h3>
+            Following
+        </h3>
+
+
       <h3 className="mt-4">People You May Know</h3>
+
       <ul className="list-group">
         {allUsers
           .filter((user) => user.id !== currentUser.id) // Exclude the current user
@@ -59,14 +89,15 @@ const Feed: React.FC<Props> = ({
               <span>{user.name}</span>
               <button
                 className="btn btn-primary btn-sm"
-                onClick={() => followUser(currentUser.id, user.id)}
+                onClick={() => handleFollow(currentUser.id, user.id)}
                 disabled={isFollowing(user.id)}
               >
                 Follow
               </button>
+
               <button
                 className="btn btn-danger btn-sm"
-                onClick={() => unfollowUser(currentUser.id, user.id)}
+                onClick={() => handleUnfollow(currentUser.id, user.id)}
                 disabled={!isFollowing(user.id)}
               >
                 Unfollow
