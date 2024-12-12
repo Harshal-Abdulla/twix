@@ -4,7 +4,6 @@ import com.twix.app.follower.FollowerRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public Optional<User> getUserByUsername(@PathVariable String username) {
+    public User getUserByUsername(@PathVariable String username) {
         return userRepository.findOneByUsername(username);
     }
 
