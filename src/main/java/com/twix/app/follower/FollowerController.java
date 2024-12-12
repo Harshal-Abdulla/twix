@@ -17,7 +17,6 @@ public class FollowerController {
         this.followerRepository = followerRepository;
     }
 
-
     @PostMapping("/{userId}/follow/{followId}")
     public String followUser(@PathVariable Long userId, @PathVariable Long followId) {
 
