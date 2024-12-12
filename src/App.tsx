@@ -22,6 +22,7 @@ interface Tweet {
 function App() {
   const [searchedUser, setSearchedUser] = useState<User | null>(null);
   const [feed, setFeed] = useState<Tweet[]>([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
 
   const searchUserByUsername = (username: string) => {
     axios
@@ -44,6 +45,13 @@ function App() {
       .then((response) => setFeed(response.data))
       .catch((error) => console.error("Error fetching feed:", error));
   };
+
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/users`)
+      .then((response) => setAllUsers(response.data))
+      .catch((error) => console.error("Error fetching users:", error));
+  }, []);
 
   const followUser = (userId: number, followId: number) => {
     axios
@@ -92,6 +100,7 @@ function App() {
           <TweetForm postTweet={postTweet} />
           <Feed
             feed={feed}
+            allUsers={allUsers}
             currentUser={searchedUser}
             followUser={followUser}
             unfollowUser={unfollowUser}

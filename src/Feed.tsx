@@ -15,6 +15,7 @@ interface Tweet {
 
 interface Props {
   feed: Tweet[];
+  allUsers: User[];
   currentUser: User;
   followUser: (userId: number, followId: number) => void;
   unfollowUser: (userId: number, followId: number) => void;
@@ -25,6 +26,7 @@ const Feed: React.FC<Props> = ({
   currentUser,
   followUser,
   unfollowUser,
+  allUsers,
 }) => {
   return (
     <div>
@@ -38,12 +40,8 @@ const Feed: React.FC<Props> = ({
       </ul>
       <h3 className="mt-4">People You May Know</h3>
       <ul className="list-group">
-        {feed
-          .map((tweet) => tweet.user)
-          .filter(
-            (user, index, self) =>
-              self.findIndex((u) => u.id === user.id) === index
-          )
+        {allUsers
+          .filter((user) => user.id !== currentUser.id) // Exclude the current user
           .map((user) => (
             <li
               key={user.id}
