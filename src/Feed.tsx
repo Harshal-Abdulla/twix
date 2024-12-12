@@ -19,7 +19,11 @@ interface Props {
   currentUser: User;
   followUser: (userId: number, followId: number) => void;
   unfollowUser: (userId: number, followId: number) => void;
+  followedUsers: User[];
 }
+
+
+
 
 const Feed: React.FC<Props> = ({
   feed,
@@ -27,7 +31,12 @@ const Feed: React.FC<Props> = ({
   followUser,
   unfollowUser,
   allUsers,
+  followedUsers,
 }) => {
+
+  const isFollowing = (userId: number) =>
+    followedUsers.some((user) => user.id ===userId);
+
   return (
     <div>
       <h3>Feed</h3>
@@ -51,12 +60,14 @@ const Feed: React.FC<Props> = ({
               <button
                 className="btn btn-primary btn-sm"
                 onClick={() => followUser(currentUser.id, user.id)}
+                disabled={isFollowing(user.id)}
               >
                 Follow
               </button>
               <button
                 className="btn btn-danger btn-sm"
                 onClick={() => unfollowUser(currentUser.id, user.id)}
+                disabled={!isFollowing(user.id)}
               >
                 Unfollow
               </button>
