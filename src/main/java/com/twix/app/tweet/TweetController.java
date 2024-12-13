@@ -1,8 +1,10 @@
 package com.twix.app.tweet;
 
 import com.twix.app.follower.FollowerRepository;
-import com.twix.app.user.UserRepository;
+import com.twix.app.observer.NotificationService;
+import com.twix.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.twix.app.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -13,17 +15,24 @@ import java.util.List;
 public class TweetController {
     @Autowired
     private TweetRepository tweetRepository;
-
     @Autowired
     private FollowerRepository followerRepository;
-
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
+
 
     @PostMapping
     public Tweet createTweet(@RequestBody Tweet tweet) {
         tweet.setCreatedAt(LocalDateTime.now());
-        return tweetRepository.save(tweet);
+        Tweet savedTweet = tweetRepository.save(tweet);
+
+        User user = tweet.getUser();
+        String notification = user.getUsername() + " posted: " + tweet.getContent();
+        notificationService.notifyFollowers(user, notification);
+
+        return savedTweet;
     }
 
     @GetMapping("/user/{userId}")
@@ -36,16 +45,4 @@ public class TweetController {
         List<Long> followedUserIds = followerRepository.findFollowedUserIds(userId);
         return tweetRepository.findByUserIdInOrderByCreatedAtDesc(followedUserIds);
     }
-
-//    @PostMapping("/{userId}/notify")
-//    public String notifyFollowers(@PathVariable Long userId, @RequestBody Tweet tweet) {
-//        User postingUser = userRepository.findById(userId).orElseThrow();
-//        List<User> followers = followerRepository.findFollowersByUserId(userId);
-//
-//        String notification = postingUser.getName() + " posted: " + tweet.getContent();
-//        followers.forEach(follower -> System.out.println("Notification to " + follower.getName() + ": " + notification));
-//
-//        return "Notifications sent.";
-//    }
 }
-
