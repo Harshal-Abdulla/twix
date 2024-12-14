@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+
+button:disabled {
+  background-color: #ccc; /* Greyed out */
+  cursor: not-allowed;   /* Show a "not-allowed" cursor */
+  opacity: 0.6;          /* Slightly transparent */
+}
