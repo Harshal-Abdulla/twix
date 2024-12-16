@@ -1,0 +1,71 @@
+
+/* UserSearch.css */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: black; /* Ensuring the background is black */
+    color: white;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .logo {
+    max-width: 120px; /* Adjust based on your actual logo size */
+    margin-bottom: 40px;
+  }
+  
+  .title {
+    font-size: 3rem; /* Large title */
+    margin-bottom: 20px; /* Space below title */
+  }
+  
+  .subtitle {
+    font-size: 1.5rem; /* Smaller than title */
+    margin-bottom: 40px; /* Space below subtitle */
+  }
+  
+  .username-search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .form-control {
+    width: 300px; /* Fixed width for the input */
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+    outline: none;
+  }
+  
+  /* Adjusting styles for the primary button in UserSearch.css */
+.btn-primary-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #aaa; /* Light grey text when inactive */
+    background-color: transparent;
+    border: 2px solid #aaa; /* Light grey border when inactive */
+    border-radius: 30px; /* Rounded borders */
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .btn-primary-button:hover, .btn-primary-button.active {
+    color: white; /* White text on active/hover */
+    background-color: #1DA1F2; /* Blue background on active/hover */
+    border-color: #1DA1F2; /* Blue border on active/hover */
+    box-shadow: 0 0 8px #1DA1F2; /* Glowing effect */
+  }
+  
+  

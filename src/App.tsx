@@ -24,14 +24,13 @@ function App() {
   const [feed, setFeed] = useState<Tweet[]>([]);
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
-  const searchUserByUsername = (username: string) => {
+  const searchUserByUsername = (username) => {
     axios
       .get(`${API_BASE_URL}/users/${username}`)
       .then((response) => {
         const user = response.data;
         if (user) {
           setSearchedUser(user);
-          fetchFeed(user.id);
         } else {
           alert("User not found!");
         }
@@ -92,9 +91,9 @@ function App() {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center">Twitter Clone</h1>
+      {!searchedUser ? (
       <UserSearch onSearch={searchUserByUsername} />
-      {searchedUser && (
+      ) : (
         <>
           <h2 className="mt-4">Welcome, {searchedUser.name}</h2>
           <TweetForm postTweet={postTweet} />

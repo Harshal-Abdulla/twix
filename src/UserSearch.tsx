@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import './UserSearch.css';  // Import the CSS file
+import Logo from './logo.png';
+
 
 interface Props {
   onSearch: (username: string) => void;
@@ -14,17 +17,29 @@ const UserSearch: React.FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <div className="input-group mb-3">
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Enter username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <button className="btn btn-primary" onClick={handleSearch}>
-        Search
-      </button>
+    <div className="main-container">
+      <div className="left-section">
+        <img src={Logo} alt="Custom Logo" className="big-logo" />
+      </div>
+      <div className="right-section">
+        <h1 className="title">Happening now</h1>
+        <h2 className="subtitle">Join today.</h2>
+        <div className="username-search">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button
+            className={`btn-primary-button ${username.trim() ? "active" : ""}`}
+            onClick={handleSearch}
+          >
+           Search
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

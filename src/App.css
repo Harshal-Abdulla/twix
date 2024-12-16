@@ -1,8 +1,16 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root, body{
+  height: 100%;
+  width: 100%;
+  background-color: black; // Set the background color for the whole app if consistent with your design
+  color: white; // Default text color
+  font-family: 'Arial', sans-serif; // Example font
+  line-height: 1.6;
 }
 
 .logo {
