@@ -75,12 +75,6 @@ function App() {
       .catch((error) => console.error("Error unfollowing user:", error));
   };
 
-  // const fetchNotFollowedUsers = (userId: number) => {
-  //     axios
-  //         .get(`${API_BASE_URL}/users/${userId}/not-following`) // Adjust endpoint as needed
-  //         .then((response) => setFollowedUsers(response.data)) // Update the followedUsers state
-  //         .catch((error) => console.error("Error fetching followed users:", error));
-  // };
 
   const postTweet = (tweet: string) => {
     if (!searchedUser) return;
@@ -112,9 +106,9 @@ function App() {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center">Twitter Clone</h1>
+      {!searchedUser ? (
       <UserSearch onSearch={searchUserByUsername} />
-      {searchedUser && (
+      ) : (
         <>
           <h2 className="mt-4">Welcome, {searchedUser.name}</h2>
           <TweetForm postTweet={postTweet} />
