@@ -1,53 +1,80 @@
+/* Reset styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }/* Styles for the TweetForm */
-.tweet-form {
-    background-color: #000; /* dark background */
-    color: #fff; /* white text */
-    padding: 16px;
-    border-radius: 8px;
-    max-width: 600px; /* adjust width as needed */
-    margin: auto;
   }
   
+  /* Main Tweet Form Container */
+  .tweet-form {
+    background-color: #000; /* Dark background */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Textarea Styles */
   .form-control {
     width: 100%;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    resize: none; /* prevents resizing the textarea */
-    background-color: #333; /* slightly lighter than form background */
-    color: #fff; /* white text */
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid #555;
+    background-color: #333; /* Grey background */
+    color: #fff; /* White text */
     font-size: 1rem;
-    margin-bottom: 4px; /* reduced to accommodate character count */
+    resize: none; /* Prevent resizing */
+    transition: border-color 0.3s ease;
   }
   
+  .form-control:focus {
+    outline: none;
+    border-color: #1da1f2; /* Twitter blue border on focus */
+    box-shadow: 0 0 5px #1da1f2;
+  }
+  
+  .form-control::placeholder {
+    color: #aaa; /* Lighter placeholder */
+  }
+  
+  /* Character Count */
   .character-count {
-    color: #8899a6; /* light gray for subtle feedback */
+    text-align: right;
+    color: #8899a6; /* Light gray */
     font-size: 0.85rem;
-    margin-bottom: 10px; /* space before button */
+    margin-bottom: 12px;
   }
   
+  /* Post Button */
   .post-button {
     display: inline-block;
-    padding: 7px 20px;
-    font-size: 16px;
-    color: #aaa; /* Light grey text when inactive */
+    width: 40%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #aaa; /* Light grey text */
     background-color: transparent;
-    border: 2px solid #aaa; /* Light grey border when inactive */
-    border-radius: 30px; /* Rounded borders */
-    text-align: center;
+    border: 2px solid #aaa;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    transition: all 0.3s ease;
   }
   
-  .post-button:hover, .post-button.active {
-    color: white; /* White text on active/hover */
-    opacity: 100%;
-    background-color: #1DA1F2; /* Blue background on active/hover */
-    border-color: #1DA1F2; /* Blue border on active/hover */
-    box-shadow: 0 0 8px #1DA1F2; /* Glowing effect */
+  .post-button.active {
+    color: #fff; /* White text */
+    background-color: #1da1f2; /* Twitter blue */
+    border-color: #1da1f2;
+    box-shadow: 0 0 8px #1da1f2; /* Glow effect */
+  }
+  
+  .post-button:hover {
+    background-color: #1a91da; /* Darker blue */
+    border-color: #1a91da;
+  }
+  
+  .post-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   
