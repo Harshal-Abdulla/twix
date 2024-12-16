@@ -27,38 +27,25 @@ interface Props {
 
 
 const Feed: React.FC<Props> = ({
-  feed,
-  currentUser,
-  followUser,
-  unfollowUser,
-  allUsers,followedUsers: initialFollowedUsers,
-}) => {
-
-    const [followedUsers, setFollowedUsers] = useState<User[]>(initialFollowedUsers || []);
-
+                                   feed,
+                                   currentUser,
+                                   followUser,
+                                   unfollowUser,
+                                   allUsers,
+                                   followedUsers, // Directly use the prop
+                               }) => {
+    // Function to check if the current user is following another user
     const isFollowing = (userId: number) =>
         followedUsers && followedUsers.some((user) => user.id === userId);
-
-
 
     const handleFollow = (userId: number, followId: number) => {
         console.log("User ID:", userId, "Follow ID:", followId);
         followUser(userId, followId);
-        const userToFollow = allUsers.find((user) => user.id === followId);
-        console.log("User to Follow:", userToFollow);
-        if (userToFollow && !isFollowing(followId)) {
-            setFollowedUsers((prev) => [...prev, userToFollow]);
-            console.log("Updated Followed Users:", [...followedUsers, userToFollow]);
-        } else {
-            console.error("User not found or already followed.");
-        }
     };
 
     const handleUnfollow = (userId: number, followId: number) => {
         unfollowUser(userId, followId);
-        setFollowedUsers((prev) => prev.filter((user) => user.id !== followId));
     };
-
 
     return (
         <div>
@@ -71,13 +58,10 @@ const Feed: React.FC<Props> = ({
                 ))}
             </ul>
 
-            <h3 className="mt-4">
-                Following
-            </h3>
-
+            <h3 className="mt-4">Following</h3>
             <ul className="list-group">
                 {allUsers
-                    .filter((user) => isFollowing(user.id)) // Only display followed users
+                    .filter((user) => isFollowing(user.id)) // Dynamically reflects the new user's followed list
                     .map((user) => (
                         <li
                             key={user.id}
@@ -94,13 +78,11 @@ const Feed: React.FC<Props> = ({
                     ))}
             </ul>
 
-
             <h3 className="mt-4">People You May Know</h3>
-
             <ul className="list-group">
                 {allUsers
-                    .filter((user) => user.id !== currentUser.id)// Exclude the current user
-                    .filter((user) => !isFollowing(user.id))
+                    .filter((user) => user.id !== currentUser.id) // Exclude the current user
+                    .filter((user) => !isFollowing(user.id)) // Exclude already followed users
                     .map((user) => (
                         <li
                             key={user.id}
@@ -114,7 +96,6 @@ const Feed: React.FC<Props> = ({
                             >
                                 Follow
                             </button>
-
                             <button
                                 className="btn btn-danger btn-sm"
                                 onClick={() => handleUnfollow(currentUser.id, user.id)}

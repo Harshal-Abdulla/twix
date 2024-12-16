@@ -23,14 +23,17 @@ function App() {
   const [searchedUser, setSearchedUser] = useState<User | null>(null);
   const [feed, setFeed] = useState<Tweet[]>([]);
   const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [followedUsers, setFollowedUsers] = useState<User[]>([]);
 
-  const searchUserByUsername = (username) => {
+  const searchUserByUsername = (username: string) => {
     axios
       .get(`${API_BASE_URL}/users/${username}`)
       .then((response) => {
         const user = response.data;
         if (user) {
           setSearchedUser(user);
+          fetchFeed(user.id);
+          fetchFollowedUsers(user.id); // Fetch followed users for the selected user
         } else {
           alert("User not found!");
         }
@@ -45,26 +48,39 @@ function App() {
       .catch((error) => console.error("Error fetching feed:", error));
   };
 
-  useEffect(() => {
+  const fetchFollowedUsers = (userId: number) => {
     axios
-      .get(`${API_BASE_URL}/users`)
-      .then((response) => setAllUsers(response.data))
-      .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+      .get(`${API_BASE_URL}/users/${userId}/following`) // Adjust endpoint as needed
+      .then((response) => setFollowedUsers(response.data)) // Update the followedUsers state
+      .catch((error) => console.error("Error fetching followed users:", error));
+  };
 
   const followUser = (userId: number, followId: number) => {
     axios
       .post(`${API_BASE_URL}/followers/${userId}/follow/${followId}`)
-      .then(() => fetchFeed(userId))
+      .then(() => {
+        fetchFollowedUsers(userId); // Refresh followed users
+        fetchFeed(userId); // Refresh feed
+      })
       .catch((error) => console.error("Error following user:", error));
   };
 
   const unfollowUser = (userId: number, followId: number) => {
     axios
       .delete(`${API_BASE_URL}/followers/${userId}/unfollow/${followId}`)
-      .then(() => fetchFeed(userId))
+      .then(() => {
+        fetchFollowedUsers(userId); // Refresh followed users
+        fetchFeed(userId); // Refresh feed
+      })
       .catch((error) => console.error("Error unfollowing user:", error));
   };
+
+  // const fetchNotFollowedUsers = (userId: number) => {
+  //     axios
+  //         .get(`${API_BASE_URL}/users/${userId}/not-following`) // Adjust endpoint as needed
+  //         .then((response) => setFollowedUsers(response.data)) // Update the followedUsers state
+  //         .catch((error) => console.error("Error fetching followed users:", error));
+  // };
 
   const postTweet = (tweet: string) => {
     if (!searchedUser) return;
@@ -77,23 +93,28 @@ function App() {
       .catch((error) => console.error("Error posting tweet:", error));
   };
 
-  // Automatically refresh the feed every 3 seconds when a user is selected
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/users`)
+      .then((response) => setAllUsers(response.data))
+      .catch((error) => console.error("Error fetching users:", error));
+  }, []);
+
   useEffect(() => {
     if (searchedUser) {
       const intervalId = setInterval(() => {
         fetchFeed(searchedUser.id);
-      }, 3000); // Fetch every 3 seconds
+      }, 3000);
 
-      // Cleanup interval on component unmount or user change
       return () => clearInterval(intervalId);
     }
   }, [searchedUser]);
 
   return (
     <div className="container mt-4">
-      {!searchedUser ? (
+      <h1 className="text-center">Twitter Clone</h1>
       <UserSearch onSearch={searchUserByUsername} />
-      ) : (
+      {searchedUser && (
         <>
           <h2 className="mt-4">Welcome, {searchedUser.name}</h2>
           <TweetForm postTweet={postTweet} />
@@ -103,6 +124,7 @@ function App() {
             currentUser={searchedUser}
             followUser={followUser}
             unfollowUser={unfollowUser}
+            followedUsers={followedUsers} // Pass the dynamically updated followed users
           />
         </>
       )}
