@@ -26,7 +26,7 @@ const TweetForm: React.FC<Props> = ({ postTweet }) => {
         placeholder="What's happening?"
       ></textarea>
       <div className="character-count">
-        {280 - tweet.length} characters remaining
+        {250 - tweet.length} characters remaining
       </div>
       <button
         type="submit"

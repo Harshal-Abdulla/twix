@@ -5,12 +5,12 @@
     padding: 0;
   }
   body, #root {
-    width: 100vw; /* Full viewport width */
+    width: 100vw;
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
     overflow-y: auto;
-    overflow-x: auto; /* Remove any scrollbars */
+    overflow-x: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@
     width: 100vw;
     background-color: black;
     color: white;
-    overflow: hidden; /* Remove scrollbars */
+    overflow: hidden;
     margin: 0;
     padding: 0;
   }
@@ -40,7 +40,7 @@
   }
   
   .logo {
-    max-width: 120px; /* Adjust size of the logo */
+    max-width: 120px;
     height: auto;
   }
   
@@ -70,7 +70,7 @@
     width: 100%;
     max-width: 400px;
     padding: 10px 15px;
-    font-size: 1rem; /* Smaller placeholder font size */
+    font-size: 1rem;
     border: 1px solid #555;
     border-radius: 25px;
     background-color: black;
@@ -79,29 +79,30 @@
   }
   
   .form-control::placeholder {
-    color: #aaa; /* Light gray placeholder */
-    font-size: 0.9rem; /* Smaller placeholder text */
+    color: #aaa;
+    font-size: 1rem;
   }
   
   /* Adjusting styles for the primary button in UserSearch.css */
 .btn-primary-button {
     display: inline-block;
     padding: 7px 20px;
+    margin-top: 10px;
     font-size: 16px;
-    color: #aaa; /* Light grey text when inactive */
+    color: #aaa;
     background-color: transparent;
-    border: 2px solid #aaa; /* Light grey border when inactive */
-    border-radius: 30px; /* Rounded borders */
-    text-align: center;
+    border: 2px solid #aaa;
+    border-radius: 30px;
+    text-align: left;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   
   .btn-primary-button:hover, .btn-primary-button.active {
-    color: white; /* White text on active/hover */
-    background-color: #1DA1F2; /* Blue background on active/hover */
-    border-color: #1DA1F2; /* Blue border on active/hover */
-    box-shadow: 0 0 8px #1DA1F2; /* Glowing effect */
+    color: white; 
+    background-color: #1DA1F2; 
+    border-color: #1DA1F2;
+    box-shadow: 0 0 8px #1DA1F2;
   }
   
   

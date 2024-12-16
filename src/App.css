@@ -7,9 +7,9 @@
 #root, body{
   height: 100%;
   width: 100%;
-  background-color: black; // Set the background color for the whole app if consistent with your design
-  color: white; // Default text color
-  font-family: 'Arial', sans-serif; // Example font
+  background-color: black;
+  color: white; 
+  font-family: 'Arial', sans-serif; 
   line-height: 1.6;
 
 }
@@ -52,7 +52,7 @@
 
 
 button:disabled {
-  background-color: #ccc; /* Greyed out */
-  cursor: not-allowed;   /* Show a "not-allowed" cursor */
-  opacity: 0.6;          /* Slightly transparent */
+  background-color: #ccc; 
+  cursor: not-allowed;   
+  opacity: 0.6;          
 }

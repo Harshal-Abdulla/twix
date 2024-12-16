@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './UserSearch.css';  // Import the CSS file
+import './UserSearch.css';
 import Logo from './logo.png';
 
 
