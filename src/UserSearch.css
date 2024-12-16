@@ -1,50 +1,68 @@
 
-/* UserSearch.css */
+/* Main Container Layout */
 .main-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-color: black; /* Ensuring the background is black */
+    background-color: black;
     color: white;
-    padding: 0;
+    overflow: hidden; /* Remove scrollbars */
     margin: 0;
+    padding: 0;
   }
   
-  .logo {
-    max-width: 120px; /* Adjust based on your actual logo size */
-    margin-bottom: 40px;
-  }
-  
-  .title {
-    font-size: 3rem; /* Large title */
-    margin-bottom: 20px; /* Space below title */
-  }
-  
-  .subtitle {
-    font-size: 1.5rem; /* Smaller than title */
-    margin-bottom: 40px; /* Space below subtitle */
-  }
-  
-  .username-search {
-    width: 100%;
+  /* Left Section: Logo Centering */
+  .left-section {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
   }
   
+  .logo {
+    max-width: 120px; /* Adjust size of the logo */
+    height: auto;
+  }
+  
+  /* Right Section: Content Alignment */
+  .right-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  /* Input Field */
   .form-control {
-    width: 300px; /* Fixed width for the input */
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc; /* Light grey border */
-    border-radius: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    font-size: 1rem; /* Smaller placeholder font size */
+    border: 1px solid #555;
+    border-radius: 25px;
     background-color: black;
     color: white;
     outline: none;
+  }
+  
+  .form-control::placeholder {
+    color: #aaa; /* Light gray placeholder */
+    font-size: 0.9rem; /* Smaller placeholder text */
   }
   
   /* Adjusting styles for the primary button in UserSearch.css */
