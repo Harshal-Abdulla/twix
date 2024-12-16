@@ -1,4 +1,8 @@
-/* Styles for the TweetForm */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }/* Styles for the TweetForm */
 .tweet-form {
     background-color: #000; /* dark background */
     color: #fff; /* white text */
@@ -27,24 +31,23 @@
   }
   
   .post-button {
-    background-color: #1da1f2; /* Twitter blue */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+    display: inline-block;
+    padding: 7px 20px;
+    font-size: 16px;
+    color: #aaa; /* Light grey text when inactive */
+    background-color: transparent;
+    border: 2px solid #aaa; /* Light grey border when inactive */
+    border-radius: 30px; /* Rounded borders */
+    text-align: center;
     cursor: pointer;
-    font-size: 1rem;
-    width: 100%; /* full width */
-    opacity: 0.5; /* less visible when disabled */
-    transition: opacity 0.3s; /* smooth transition for opacity */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   
-  .post-button:disabled {
-    cursor: default;
-    opacity: 0.5; /* less visible when disabled */
-  }
-  
-  .post-button:not(:disabled) {
-    opacity: 1; /* fully visible and clickable when active */
+  .post-button:hover, .post-button.active {
+    color: white; /* White text on active/hover */
+    opacity: 100%;
+    background-color: #1DA1F2; /* Blue background on active/hover */
+    border-color: #1DA1F2; /* Blue border on active/hover */
+    box-shadow: 0 0 8px #1DA1F2; /* Glowing effect */
   }
   
