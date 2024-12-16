@@ -1,8 +1,10 @@
 package com.twix.app.tweet;
 
 import com.twix.app.follower.FollowerRepository;
-import com.twix.app.user.UserRepository;
+import com.twix.app.observer.NotificationService;
+import com.twix.app.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.twix.app.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -19,11 +21,20 @@ public class TweetController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
+
 
     @PostMapping
     public Tweet createTweet(@RequestBody Tweet tweet) {
         tweet.setCreatedAt(LocalDateTime.now());
-        return tweetRepository.save(tweet);
+        Tweet savedTweet = tweetRepository.save(tweet);
+
+        User user = tweet.getUser();
+        String notification = user.getUsername() + " posted: " + tweet.getContent();
+        notificationService.notifyFollowers(user, notification);
+
+        return savedTweet;
     }
 
     @GetMapping("/user/{userId}")
