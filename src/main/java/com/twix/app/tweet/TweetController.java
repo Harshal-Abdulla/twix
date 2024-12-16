@@ -36,16 +36,5 @@ public class TweetController {
         List<Long> followedUserIds = followerRepository.findFollowedUserIds(userId);
         return tweetRepository.findByUserIdInOrderByCreatedAtDesc(followedUserIds);
     }
-
-//    @PostMapping("/{userId}/notify")
-//    public String notifyFollowers(@PathVariable Long userId, @RequestBody Tweet tweet) {
-//        User postingUser = userRepository.findById(userId).orElseThrow();
-//        List<User> followers = followerRepository.findFollowersByUserId(userId);
-//
-//        String notification = postingUser.getName() + " posted: " + tweet.getContent();
-//        followers.forEach(follower -> System.out.println("Notification to " + follower.getName() + ": " + notification));
-//
-//        return "Notifications sent.";
-//    }
 }
 
