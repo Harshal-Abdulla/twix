@@ -38,4 +38,16 @@ public class UserController {
         notificationService.createSubjectForUser(savedUser);
         return savedUser;
     }
+
+    @GetMapping("/{id}/not-following")
+    public List<User> getAllNotFollowingUsers(@PathVariable Long id) {
+        List<Long> userIds = followerRepository.findFollowedUserIds(id);
+        return userRepository.findNotFollowedUsers(userIds);
+    }
+
+    @GetMapping("/{id}/following")
+    public List<User> getAllFollowingUsers(@PathVariable Long id) {
+        List<Long> userIds = followerRepository.findFollowedUserIds(id);
+        return userRepository.findAllById(userIds);
+    }
 }
