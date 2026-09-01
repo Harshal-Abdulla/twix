@@ -3,8 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Z</title>
-    <link rel="icon" href="/src/logo.png" type="image/png" />
+    <title>Twix</title>
+    <meta name="description" content="Twix, a Twitter-style microblog. Follow people and read a feed of what they post." />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Served from public/, so the path is stable in a production build.
+         Anything under src/ gets hashed into /assets/ and cannot be linked
+         by name, which is why /src/logo.png used to 404 once deployed. -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
   </head>
   <body>
     <div id="root"></div>

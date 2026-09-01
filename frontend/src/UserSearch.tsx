@@ -19,7 +19,7 @@ const UserSearch: React.FC<Props> = ({ onSearch }) => {
   return (
     <div className="main-container">
       <div className="left-section">
-        <img src={Logo} alt="Custom Logo" className="big-logo" />
+        <img src={Logo} alt="Twix" className="big-logo" />
       </div>
       <div className="right-section">
         <h1 className="title">Happening now</h1>
