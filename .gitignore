@@ -1,7 +1,5 @@
-# Never commit real credentials. Use application.properties.example as the
-# template and keep your filled-in application.properties local, or set
-# TWIX_DB_URL / TWIX_DB_USER / TWIX_DB_PASSWORD in the environment.
-backend/src/main/resources/application.properties
+# Credentials come from the environment (TWIX_DB_URL / TWIX_DB_USER /
+# TWIX_DB_PASSWORD). Never hardcode them in application.properties.
 .env
 *.env
 !*.env.example

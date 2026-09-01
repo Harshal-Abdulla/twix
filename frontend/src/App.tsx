@@ -4,7 +4,10 @@ import UserSearch from "./UserSearch";
 import Feed from "./Feed";
 import TweetForm from "./TweetForm";
 
-const API_BASE_URL = "http://localhost:8080/api";
+// Same origin in production: the frontend and the API are two services in one
+// Vercel project, so a relative path needs no configuration. Set VITE_API_URL
+// only when running the dev server against a backend on another port.
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 interface User {
   id: number;

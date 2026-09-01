@@ -1,0 +1,22 @@
+# Spring Boot on Vercel Functions, as an OCI container image.
+#
+# Two stages so the shipped image carries a JRE and one jar rather than Maven
+# and the whole dependency cache.
+
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /build
+# Dependencies first: this layer is cached unless pom.xml itself changes, so
+# ordinary source edits do not re-download the world.
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
+COPY src ./src
+RUN mvn -B -q -DskipTests package
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /build/target/*.jar app.jar
+
+# Vercel sends traffic to port 80 by default and overrides PORT if it is set in
+# the project settings, so honour both.
+EXPOSE 80
+CMD ["sh", "-c", "exec java -XX:MaxRAMPercentage=75 -jar app.jar --server.port=${PORT:-80}"]
