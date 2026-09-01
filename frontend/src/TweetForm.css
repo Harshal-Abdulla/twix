@@ -1,0 +1,82 @@
+/* Reset styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main Tweet Form Container */
+  .tweet-form {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Textarea Styles */
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid #555;
+    background-color: #333; 
+    color: #fff; 
+    font-size: 1rem;
+    resize: none; 
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #1da1f2; 
+    box-shadow: 0 0 5px #1da1f2;
+  }
+  
+  .form-control::placeholder {
+    color: #aaa; 
+  }
+  
+ /* Character Count Styling */
+  .character-count {
+  color: #8899a6; 
+  font-size: 0.85rem;
+  margin-top: 8px; 
+  margin-bottom: 10px; 
+  text-align: left; 
+}
+
+  
+  /* Post Button */
+  .post-button {
+    display: inline-block;
+    width: 40%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #aaa;
+    background-color: transparent;
+    border: 2px solid #aaa;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .post-button.active {
+    color: #fff; 
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+    box-shadow: 0 0 8px #1da1f2;
+  }
+  
+  .post-button:hover {
+    background-color: #1a91da; 
+    border-color: #1a91da;
+  }
+  
+  .post-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
