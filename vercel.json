@@ -1,11 +1,11 @@
 {
   "services": {
     "frontend": {
-      "root": "frontend",
-      "framework": "vite"
+      "root": "frontend/",
+      "entrypoint": "Dockerfile.vercel"
     },
     "backend": {
-      "root": "backend",
+      "root": "backend/",
       "entrypoint": "Dockerfile.vercel"
     }
   },
