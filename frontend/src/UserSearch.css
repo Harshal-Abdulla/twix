@@ -106,3 +106,53 @@
   }
   
   
+
+/* Phones.
+   This screen is a two-column flex row pinned to height:100vh with
+   overflow:hidden. On a 390px phone that squeezes the logo and the content
+   into two narrow columns and then clips whatever does not fit, so the search
+   field could sit below the fold with no way to scroll to it.
+
+   Stacking the columns and releasing the height lets the page grow and scroll
+   normally. 100vw also has to go: with a vertical scrollbar it is wider than
+   the viewport, which is what put a horizontal scroll on the whole page. */
+@media (max-width: 700px) {
+  body,
+  #root {
+    width: 100%;
+    display: block;
+    overflow-x: hidden;
+  }
+
+  .main-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    width: 100%;
+    overflow: visible;
+    padding: 24px 16px;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .left-section,
+  .right-section {
+    flex: none;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .username-search,
+  .form-control {
+    width: 100%;
+    /* Under 16px iOS Safari zooms the page on focus. */
+    font-size: 16px;
+    min-height: 44px;
+  }
+}

@@ -80,3 +80,28 @@
     cursor: not-allowed;
   }
   
+/* Phones.
+   The layout was already fluid, so this is about touch rather than reflow:
+   the post button was 40% wide, which on a 390px screen is a 150px target
+   sitting alone on a line, and the 20px side margins ate space the textarea
+   needed. Apple and Google both put the minimum comfortable target at ~44px
+   tall, so the button gets that as a floor. */
+@media (max-width: 600px) {
+  .tweet-form {
+    margin: 12px 10px;
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .post-button {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px;
+  }
+
+  .form-control {
+    /* Anything under 16px makes iOS Safari zoom the page on focus, which
+       leaves the user scrolled sideways in a text box. */
+    font-size: 16px;
+  }
+}
