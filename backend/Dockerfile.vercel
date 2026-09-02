@@ -17,6 +17,22 @@ WORKDIR /app
 COPY --from=build /build/target/*.jar app.jar
 
 # Vercel sends traffic to port 80 by default and overrides PORT if it is set in
-# the project settings, so honour both.
+# the project settings. application.properties already reads server.port from
+# ${PORT:80}, and Spring resolves environment variables itself, so nothing here
+# needs a shell to expand it.
 EXPOSE 80
-CMD ["sh", "-c", "exec java -XX:MaxRAMPercentage=75 -jar app.jar --server.port=${PORT:-80}"]
+
+# Java is invoked by absolute path, and this is the whole reason the container
+# would not start on Vercel.
+#
+# In eclipse-temurin, java lives at /opt/java/openjdk/bin/java, which is only
+# on PATH because the image sets it with ENV. A runtime that does not carry the
+# image's ENV through leaves a PATH without that directory, "java" resolves to
+# nothing, and the shell exits 127 — command not found. That is exactly the
+# error Vercel reported, while the nginx frontend was unaffected because nginx
+# sits in /usr/sbin, which is on every default PATH.
+#
+# Naming the binary outright removes the dependency on PATH entirely. Dropping
+# the "sh -c" wrapper removes a second one: with the exec form there is no
+# shell to find either.
+CMD ["/opt/java/openjdk/bin/java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]
