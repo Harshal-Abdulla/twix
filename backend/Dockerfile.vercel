@@ -35,4 +35,19 @@ EXPOSE 80
 # Naming the binary outright removes the dependency on PATH entirely. Dropping
 # the "sh -c" wrapper removes a second one: with the exec form there is no
 # shell to find either.
-CMD ["/opt/java/openjdk/bin/java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]
+# Startup flags, not throughput flags. This process has to accept its first
+# request within a fixed window on a cold machine, and it is a demo app that
+# will never be under load, so trading peak performance for time-to-first-byte
+# is the right way round here.
+#
+#   TieredStopAtLevel=1  stops the JIT at C1. C2 compilation is what makes a
+#                        long-running JVM fast, and it is pure cost during boot.
+#   UseSerialGC          skips the heuristics and thread pools G1 sets up.
+#   Xshare:auto          memory-maps the shared class archive rather than
+#                        loading those classes one at a time.
+CMD ["/opt/java/openjdk/bin/java", \
+     "-XX:MaxRAMPercentage=75", \
+     "-XX:TieredStopAtLevel=1", \
+     "-XX:+UseSerialGC", \
+     "-Xshare:auto", \
+     "-jar", "app.jar"]
