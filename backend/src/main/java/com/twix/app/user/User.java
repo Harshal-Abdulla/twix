@@ -29,6 +29,17 @@ public class User implements Observer {
         return name;
     }
 
+    // Setters. Jackson populates the fields directly by reflection, so nothing
+    // needed these before; the registration endpoint does, because it stores a
+    // trimmed username rather than whatever arrived on the request.
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public void update(String message) {
         System.out.println("Notification for " + this.getUsername() + ":" + message);

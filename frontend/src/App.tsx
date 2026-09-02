@@ -27,21 +27,42 @@ function App() {
   const [feed, setFeed] = useState<Tweet[]>([]);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [followedUsers, setFollowedUsers] = useState<User[]>([]);
+  const [authError, setAuthError] = useState<string | null>(null);
+
+  const enter = (user: User) => {
+    setSearchedUser(user);
+    fetchFeed(user.id);
+    fetchFollowedUsers(user.id);
+  };
 
   const searchUserByUsername = (username: string) => {
+    setAuthError(null);
     axios
       .get(`${API_BASE_URL}/users/${username}`)
       .then((response) => {
         const user = response.data;
-        if (user) {
-          setSearchedUser(user);
-          fetchFeed(user.id);
-          fetchFollowedUsers(user.id); // Fetch followed users for the selected user
+        // A username that does not exist comes back as 200 with an empty body
+        // rather than a 404, so the check is on the body, not the status.
+        if (user && user.id) {
+          enter(user);
         } else {
-          alert("User not found!");
+          setAuthError(`No account called "${username}". Create one below.`);
         }
       })
-      .catch((error) => console.error("Error searching user:", error));
+      .catch(() => setAuthError("Could not reach the server. Try again."));
+  };
+
+  const registerUser = (username: string, name: string) => {
+    setAuthError(null);
+    axios
+      .post(`${API_BASE_URL}/users`, { username, name })
+      .then((response) => enter(response.data))
+      .catch((error) => {
+        // The backend distinguishes a blank field from a taken username, and
+        // both arrive with a message written for a person to read.
+        const message = error?.response?.data?.error;
+        setAuthError(message || "Could not create the account. Try again.");
+      });
   };
 
   const fetchFeed = (userId: number) => {
@@ -110,7 +131,11 @@ function App() {
   return (
     <div className="container mt-4">
       {!searchedUser ? (
-      <UserSearch onSearch={searchUserByUsername} />
+      <UserSearch
+          onSearch={searchUserByUsername}
+          onRegister={registerUser}
+          error={authError}
+        />
       ) : (
         <>
           <h2 className="mt-4">Welcome, {searchedUser.name}</h2>

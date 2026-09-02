@@ -156,3 +156,52 @@
     min-height: 44px;
   }
 }
+
+/* Sign-in / sign-up affordances.
+   The form stacks its fields, because the sign-up mode adds a second input and
+   a row that fit side by side at one width will not at the other. */
+.username-search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 12px;
+  max-width: 380px;
+}
+
+.auth-switch {
+  margin-top: 14px;
+  color: #8899a6;
+  font-size: 0.9rem;
+}
+
+/* A button that reads as a link: it is a real button so it is keyboard
+   reachable and announced correctly, styled to look like the inline text it
+   sits in. */
+.auth-switch button {
+  background: none;
+  border: none;
+  color: #1da1f2;
+  font-size: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-primary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 44px is the floor both Apple and Google give for a comfortable touch target,
+   and it is the height the inputs above it already use. The button was landing
+   at 42 on its padding alone. */
+.btn-primary-button {
+  min-height: 44px;
+}
